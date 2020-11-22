@@ -1,0 +1,65 @@
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap-datetimepicker.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/fontello.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/estilos.css">
+
+<div class="container mt-5">
+    <div class="row" >
+        <div class="col-4"></div>
+        <div class="col-4">
+            <div class="card text-center">
+                <div class="card-header">
+                    <img src="${pageContext.request.contextPath}/resources/img/logo2.png" alt="">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Ingreso al Poral</h5>
+                    <hr>
+                    <div style="color: #b21f2d" class="mb-3">
+                        ${mensaje}
+                    </div>
+                    <form action="${pageContext.request.contextPath}/ServletControlador" 
+                          method="post" id="formLogin" name="formLogin">
+
+                        <input type="hidden" name="accion" id="accion" value="validarUsuario" >
+                        <input type="hidden" name="contexto" id="contexto" value="${pageContext.request.contextPath}">
+
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Usuario</label>
+                            <input type="text" class="form-control" name="usuLogin" aria-describedby="emailHelp" placeholder="Usuario" required>
+                            <small id="emailHelp" class="form-text text-muted">Por favor ingrese su numero de Cedula.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Password</label>
+                            <input type="password" class="form-control" name="usuContrasena" placeholder="Password" required>
+                        </div>
+                        <hr>
+                        <div class="form-row text-center">
+                            <div class="col-6">
+                                <input type="button" class="btn btn-light form-control" value="Registrarse" onclick="registrarLogin();"/>
+                            </div>
+                            <div class="col-6">
+                                <input type="submit" class="btn btn-success form-control" value="Ingresar" />
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="card-footer text-muted text-">
+                    <a href="#">Olvido su Contrase�a</a> 
+                </div>
+            </div>
+        </div>
+        <div class="col-4"></div>
+    </div>
+</div>
+<script type="text/javascript" language="javascript">
+    function registrarLogin() {
+        var forma = document.getElementById("formLogin");
+        //Actualizamos el URL que tenia asignado el formulario
+        //Para solicitar nuevamente el listado de alumnos, ya que estamos cancelando la modificacion
+        window.location = forma.contexto.value + "/ServletControlador";
+        forma.accion.value = "redireccionarRegistro";
+        forma.submit();
+    }
+</script>
