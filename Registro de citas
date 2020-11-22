@@ -1,0 +1,141 @@
+S<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Registro Cliente</title>
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap-datetimepicker.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/fontello.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/estilos.css">
+    </head>
+    <body>
+        <div class="container mt-5">
+            <div class="row" >
+                <div class="col-3"></div>
+                <div class="col-6">
+                    <div class="card text-center">
+                        <div class="card-header">
+                            <img src="${pageContext.request.contextPath}/resources/img/logo2.png" alt="">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Registro Cliente Nuevo</h5>
+                            <hr>
+                            <div style="color: #b21f2d" class="mb-3">
+                                ${mensaje}
+                            </div>
+                            <form action="${pageContext.request.contextPath}/ServletControlador" 
+                                  method="post" id="formRegistro" name="formRegistro">
+
+                                <input type="hidden" name="accion" id="accion" value="registroCliente" >
+                                <input type="hidden" name="contexto" id="contexto" value="${pageContext.request.contextPath}">
+
+                                <h5>DATOS PACIENTE</h5>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="pacPriNom" name="pacPriNom" 
+                                                   placeholder="Primer Nombre" onKeyUp="this.value = this.value.toUpperCase();" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="pacSegNombre" name="pacPriApe" 
+                                                   placeholder="Segundo Nombre" onKeyUp="this.value = this.value.toUpperCase();" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <br>
+                                <h5>DATOS CLIENTE</h5>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="cliLogin" placeholder="login" required>
+                                            <small id="emailHelp" class="form-text text-muted">Por favor ingrese su numero de Cedula.</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" id="cliPriNom" name="cliPriNom" 
+                                                   placeholder="Primer Nombre" onKeyUp="this.value = this.value.toUpperCase();" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="cliSegNom" 
+                                                   placeholder="Segundo Nombre" onKeyUp="this.value = this.value.toUpperCase();" >
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="cliApellidos" 
+                                                   placeholder="Apellidos" onKeyUp="this.value = this.value.toUpperCase();" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="cliDireccion" placeholder="Direccion" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="cliTelefono" placeholder="Telefono" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <input type="email" id="email" class="form-control" name="cliCorreo" placeholder="Correo" onblur="validarEmail(this);" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <br>
+                                <h5>DATOS LOGIN</h5>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <input type="password" class="form-control" name="cliClave1" placeholder="Clave 1" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <input type="password" class="form-control" name="cliClave2" placeholder="clave 2" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer text-muted text-">
+                                    <div class="form-row text-center">
+                                        <div class="col-6">
+                                            <input type="button" class="btn btn-light form-control" value="Regresar" onclick="regresar();"/>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="submit" class="btn btn-success form-control" value="Grabar" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3"></div>
+            </div>
+        </div> 
+    </body>
+    <script>
+
+        function regresar(){
+            var forma = document.getElementById("formRegistro");
+//Actualizamos el URL que tenia asignado el formulario
+//Para solicitar nuevamente el listado de alumnos, ya que estamos cancelando la modificacion
+            window.location = forma.contexto.value + "/ServletControlador";
+            forma.accion.value = "redireccionarRegresar";
+            forma.submit();
+        }
+    </script> 
+</html>
